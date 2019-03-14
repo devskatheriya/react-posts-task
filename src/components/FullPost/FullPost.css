@@ -1,0 +1,36 @@
+.outerDiv{
+    margin: 10px;
+    margin-top: 30px;
+    padding: 10px;
+    display: block;
+    /* height: auto; */
+    border: 1px solid blue;
+    box-shadow: 5px 10px 10px 10px rgb(230, 209, 230);
+    box-align: center;
+    position: relative;
+}
+.bodyDiv{
+    margin: 10px;
+    padding: 20px;
+    background-color: aqua;
+    line-height: 30px;
+    position: relative;
+}
+div.relative {
+    position: relative;
+ 
+  } 
+div.absolute {
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+    padding: 10px;
+    margin: 10px;
+   
+  }
+  .delete{
+      right:0;
+  }
+  .edit{
+      margin-left: 1px;
+  }
