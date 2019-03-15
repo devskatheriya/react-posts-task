@@ -1,18 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Post from "../Posts/Post/Post";
-import swal from "sweetalert";
+// import swal from "sweetalert";
 
 class Posts extends Component {
-  constructor(props) {
-    super(props);
-    if (!props.isAuth) {
-      swal("Oops", "Login First!", "error", {
-        timer: 3000
-      });
-      props.history.replace({ pathname: "/" });
-    }
-  }
   state = {
     postsData: [],
     postId: null
@@ -26,6 +17,8 @@ class Posts extends Component {
   }
 
   myclickhandler = id => {
+    console.log(id);
+    console.log(this.props.history.post);
     this.props.history.push({ pathname: "/post/" + id });
   };
 

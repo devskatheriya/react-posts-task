@@ -42,15 +42,15 @@ class FullPost extends Component {
             this.setState({ loading: false });
             swal("Yeah! Your Post has been deleted!", {
               icon: "success",
-              timer:2000
+              timer: 2000
             });
             this.props.history.goBack();
           })
           .catch(error => {
             console.log(error);
             this.setState({ loading: false });
-            swal("Oops", "Something went wrong!", "error",{
-              timer:3000
+            swal("Oops", "Something went wrong!", "error", {
+              timer: 3000
             });
           });
       } else {
@@ -76,6 +76,7 @@ class FullPost extends Component {
             size={50}
             color={"black"}
             loading={this.state.loading}
+            className={this.state.active > 0 ? "green" : "green"}
           />
         );
       }
