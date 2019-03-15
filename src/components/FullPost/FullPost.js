@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./FullPost.css";
 import { Button } from "react-bootstrap";
+import swal from "sweetalert";
+import { ClipLoader } from "react-spinners";
 
 class FullPost extends Component {
   state = {
-    postData: null
+    postData: null,
+    loading: false
   };
 
   componentDidMount() {
@@ -20,21 +23,62 @@ class FullPost extends Component {
         });
       });
   }
+
   deletePostHandler = postId => {
-    axios
-      .delete("https://jsonplaceholder.typicode.com/posts/" + postId)
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-      console.log(this.props.history.goBack())
+    swal({
+      title: "Delete Post!! Are you sure?",
+      text: "Once deleted, you will not be able to recover this Post!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true
+    }).then(willDelete => {
+      if (willDelete) {
+        this.setState({ loading: true });
+
+        axios
+          .delete("https://jsonplaceholder.typicode.com/posts/" + postId)
+          .then(response => {
+            console.log(response);
+            this.setState({ loading: false });
+            swal("Yeah! Your Post has been deleted!", {
+              icon: "success",
+              timer:2000
+            });
+            this.props.history.goBack();
+          })
+          .catch(error => {
+            console.log(error);
+            this.setState({ loading: false });
+            swal("Oops", "Something went wrong!", "error",{
+              timer:3000
+            });
+          });
+      } else {
+        swal("Your Post is safe!");
+      }
+    });
   };
   render() {
+    const override = `
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+`;
     var post;
     if (this.state.postData !== null) {
-      // console.log("hi");
+      if (this.state.loading) {
+        // console.log("hi");
+        post = (
+          <ClipLoader
+            key="kkk"
+            css={override}
+            sizeUnit={"px"}
+            size={50}
+            color={"black"}
+            loading={this.state.loading}
+          />
+        );
+      }
       post = (
         <div className="outerDiv relative" key={this.state.postData.id}>
           <h1 className="title">{this.state.postData.title}</h1>
@@ -56,6 +100,7 @@ class FullPost extends Component {
         </div>
       );
     }
+
     // console.log(post);
     return [post];
   }

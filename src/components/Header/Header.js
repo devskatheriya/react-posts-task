@@ -1,18 +1,27 @@
 import React, { Component } from "react";
 import { Nav, Navbar, Button } from "react-bootstrap";
 
+
 class Header extends Component {
+
+
   render() {
+    var btnText;
+    if(this.props.auth.isAuthenticate){
+      btnText='Logout';
+    }else{
+      btnText='Login';
+    }
     return (
       <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+        <Navbar.Brand href="#home">Blog Posts</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/posts">Posts</Nav.Link>
         </Nav>
-
-        <Button variant="outline-info">Search</Button>
+        <Button variant="outline-info" className="pull-right" onClick={this.props.clicking}>
+          {btnText}
+        </Button>
       </Navbar>
     );
   }
